@@ -76,7 +76,7 @@ RUN apt update \
 # g2o dependencies
 RUN apt update \
  && apt install -y \
-     libatlas-base-dev \
+    libatlas-base-dev \
     libsuitesparse-dev \
  && sudo apt clean
 

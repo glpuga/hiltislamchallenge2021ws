@@ -75,17 +75,27 @@ RUN addgroup --gid 1000 $USER && \
 RUN adduser $USER sudo \
  && echo "$USER ALL=NOPASSWD: ALL" >> /etc/sudoers.d/$USER
 
+#
+# Install openvslam
+WORKDIR /home/root
+COPY files/build_openvslam.sh build_openvslam.sh
+RUN chmod a+x build_openvslam.sh \
+ && ./build_openvslam.sh
+
 # Add extra ROS packages here
 RUN apt update \
  && apt install -y \
         ros-${DIST}-cv-bridge \
  && apt clean
 
-# # Install extra tools tools
-# RUN apt update \
-#  && apt install -y \
-#     tmux \
-#  && apt clean 
+# Install extra tools tools
+RUN apt update \
+ && apt install -y \
+    cm-super \
+    dvipng \
+    texlive-latex-extra \
+    texlive-fonts-recommended \
+ && apt clean 
 
 # Commands below run as the developer user.
 USER $USER:$GROUP
