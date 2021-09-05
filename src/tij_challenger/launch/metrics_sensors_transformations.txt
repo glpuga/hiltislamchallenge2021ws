@@ -1,0 +1,36 @@
+ -----------------------------------------
+---   SENSORS TRANSFORMATIONS METRICS   ---
+ -----------------------------------------
+
+Vicon Pose is at the center of gravity of the drone, with FLU (Forward, Left, Up) axis, as well as the flight controller (DJI A3).
+
+Flight Controller Imu:
+   x: 0.0 cm
+   y: 0.0 cm
+   z: 0.0 cm
+
+   Roll:   0.0 deg 
+   Pitch:  0.0 deg
+   Yaw:    0.0 deg
+
+
+RP-LIDAR:
+   x: -5.5 cm
+   y:  0.0 cm
+   z: 16.5 cm
+
+   Roll:   0.0 deg
+   Pitch:  0.0 deg
+   Yaw:    -177.23 deg
+ 
+
+Realsense D435i Depth Camera (Color Camera Frame):
+   x:  8.3 cm
+   y: -3.0 cm
+   z: -4.5 cm
+
+   Roll:   0.0 deg
+   Pitch:  15.0 deg
+   Yaw:    0.0 deg
+
+

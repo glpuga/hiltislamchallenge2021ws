@@ -1,0 +1,105 @@
+# Metrics 2021 Monocular RGBD Camera
+
+# #
+# # /camera/color/camera_info
+# height: 480
+# width: 640
+# distortion_model: "plumb_bob"
+# D: [0.0, 0.0, 0.0, 0.0, 0.0]
+# K: [611.9695434570312, 0.0, 318.71343994140625, 0.0, 612.0466918945312, 237.70240783691406, 0.0, 0.0, 1.0]
+# R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+# P: [611.9695434570312, 0.0, 318.71343994140625, 0.0, 0.0, 612.0466918945312, 237.70240783691406, 0.0, 0.0, 0.0, 1.0, 0.0]
+
+# #
+# # /camera/depth/camera_info
+# height: 480
+# width: 640
+# distortion_model: "plumb_bob"
+# D: [0.0, 0.0, 0.0, 0.0, 0.0]
+# K: [391.7041931152344, 0.0, 317.6928405761719, 0.0, 391.7041931152344, 239.3055419921875, 0.0, 0.0, 1.0]
+# R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+# P: [391.7041931152344, 0.0, 317.6928405761719, 0.0, 0.0, 391.7041931152344, 239.3055419921875, 0.0, 0.0, 0.0, 1.0, 0.0]
+
+# #
+# # /camera/depth_registered/camera_info
+# height: 480
+# width: 640
+# distortion_model: "plumb_bob"
+# D: [0.0, 0.0, 0.0, 0.0, 0.0]
+# K: [611.9695434570312, 0.0, 318.71343994140625, 0.0, 612.0466918945312, 237.70240783691406, 0.0, 0.0, 1.0]
+# R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+# P: [611.9695434570312, 0.0, 318.71343994140625, 0.0, 0.0, 612.0466918945312, 237.70240783691406, 0.0, 0.0, 0.0, 1.0, 0.0]
+
+
+#==============#
+# Camera Model #
+#==============#
+
+Camera:
+  name: "Metrics 2021 Monocular RGBD Camera"
+  setup: "RGBD"
+  model: "perspective"
+
+  # K: [611.9695434570312, 0.0, 318.71343994140625, 0.0, 612.0466918945312, 237.70240783691406, 0.0, 0.0, 1.0]
+  fx: 611.9695434570312
+  fy: 612.0466918945312
+  cx: 318.71343994140625
+  cy: 237.70240783691406
+
+  # D: [0.0, 0.0, 0.0, 0.0, 0.0]
+  k1: 0
+  k2: 0
+  p1: 0
+  p2: 0
+  k3: 0
+
+  fps: 30.0
+  cols: 640
+  rows: 480
+  # 50mm baseline for the D435i
+  focal_x_baseline: 30.598477150000004
+
+  color_order: "RGB"
+
+#=====================#
+# Tracking Parameters #
+#=====================#
+
+Tracking:
+  max_num_keypoints: 1000
+  ini_max_num_keypoints: 2000
+  depth_threshold: 200.0
+  depthmap_factor: 1000.0
+
+#================#
+# ORB Parameters #
+#================#
+
+Feature:
+  scale_factor: 1.2
+  num_levels: 8
+  ini_fast_threshold: 20
+  min_fast_threshold: 7
+
+#====================#
+# Mapping Parameters #
+#====================#
+
+Mapping:
+  baseline_dist_thr_ratio: 0.02
+
+#===========================#
+# PangolinViewer Parameters #
+#===========================#
+
+PangolinViewer:
+  keyframe_size: 0.05
+  keyframe_line_width: 1
+  graph_line_width: 1
+  point_size: 2
+  camera_size: 0.08
+  camera_line_width: 3
+  viewpoint_x: 0
+  viewpoint_y: -0.9
+  viewpoint_z: -1.9
+  viewpoint_f: 400
