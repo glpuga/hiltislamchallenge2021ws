@@ -21,7 +21,7 @@ USERID=$(id -u)
 GROUPID=$(id -g)
 
 docker run -it \
-    --mount type=bind,source=${LOCAL_REPO_PATH}/src,target=/home/developer/ws/src \
+    --mount type=bind,source=${LOCAL_REPO_PATH}/src,target=/home/developer/ws/src/project \
     --mount type=bind,source=${LOCAL_REPO_PATH}/datasets,target=/home/developer/datasets \
     -e DISPLAY \
     -e QT_X11_NO_MITSHM=1 \

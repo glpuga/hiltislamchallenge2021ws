@@ -1,0 +1,9 @@
+[submodule "src/third_party/rpg_trajectory_evaluation"]
+	path = src/third_party/rpg_trajectory_evaluation
+	url = https://github.com/uzh-rpg/rpg_trajectory_evaluation.git
+[submodule "src/third_party/catkin_simple"]
+	path = src/third_party/catkin_simple
+	url = https://github.com/catkin/catkin_simple.git
+[submodule "src/third_party/openvslam_ros"]
+	path = src/third_party/openvslam_ros
+	url = https://github.com/OpenVSLAM-Community/openvslam_ros.git

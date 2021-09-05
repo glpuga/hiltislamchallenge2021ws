@@ -75,11 +75,11 @@ RUN addgroup --gid 1000 $USER && \
 RUN adduser $USER sudo \
  && echo "$USER ALL=NOPASSWD: ALL" >> /etc/sudoers.d/$USER
 
-# # Add extra ROS packages here
-# RUN apt update \
-#  && apt install -y \
-#     ros-melodic-moveit \
-#  && apt clean
+# Add extra ROS packages here
+RUN apt update \
+ && apt install -y \
+        ros-${DIST}-cv-bridge \
+ && apt clean
 
 # # Install extra tools tools
 # RUN apt update \
@@ -93,7 +93,7 @@ USER $USER:$GROUP
 RUN rosdep update
 
 RUN mkdir -p /home/$USER/datasets \
- && mkdir -p /home/$USER/ws/src
+ && mkdir -p /home/$USER/ws/src/project
 
 # Declare the location of the datasets in an environmental variable
 RUN /bin/sh -c 'echo "export DATASET_DIR=/home/${USER}/datasets" >> ~/.bashrc'
