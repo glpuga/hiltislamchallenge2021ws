@@ -82,28 +82,28 @@ wget -q https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2 &&
     make install && make clean
 
 # Download, build and install OpenCV from source.
-cd "$BUILD_DIR"
-wget -q https://github.com/opencv/opencv/archive/3.4.15.zip &&
-    unzip -q 3.4.15.zip &&
-    rm -rf 3.4.15.zip &&
-    cd opencv-3.4.15 &&
-    mkdir -p build && cd build &&
-    cmake \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_PREFIX=/usr/local \
-        -DENABLE_CXX11=ON \
-        -DBUILD_DOCS=OFF \
-        -DBUILD_EXAMPLES=OFF \
-        -DBUILD_JASPER=OFF \
-        -DBUILD_OPENEXR=OFF \
-        -DBUILD_PERF_TESTS=OFF \
-        -DBUILD_TESTS=OFF \
-        -DWITH_EIGEN=ON \
-        -DWITH_FFMPEG=ON \
-        -DWITH_OPENMP=ON \
-        .. &&
-    make -j$(nproc) &&
-    make install && make clean
+# cd "$BUILD_DIR"
+# wget -q https://github.com/opencv/opencv/archive/3.4.15.zip &&
+#     unzip -q 3.4.15.zip &&
+#     rm -rf 3.4.15.zip &&
+#     cd opencv-3.4.15 &&
+#     mkdir -p build && cd build &&
+#     cmake \
+#         -DCMAKE_BUILD_TYPE=Release \
+#         -DCMAKE_INSTALL_PREFIX=/usr/local \
+#         -DENABLE_CXX11=ON \
+#         -DBUILD_DOCS=OFF \
+#         -DBUILD_EXAMPLES=OFF \
+#         -DBUILD_JASPER=OFF \
+#         -DBUILD_OPENEXR=OFF \
+#         -DBUILD_PERF_TESTS=OFF \
+#         -DBUILD_TESTS=OFF \
+#         -DWITH_EIGEN=ON \
+#         -DWITH_FFMPEG=ON \
+#         -DWITH_OPENMP=ON \
+#         .. &&
+#     make -j$(nproc) &&
+#     make install && make clean
 
 # Download, build and install the custom FBoW from source.
 cd "$BUILD_DIR"
