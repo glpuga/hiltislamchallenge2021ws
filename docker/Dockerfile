@@ -103,6 +103,11 @@ USER $USER:$GROUP
 
 RUN rosdep update
 
+# Download the openvslam vocabulary file. Needed in runtime.
+RUN /bin/sh -c 'mkdir -p ~/data/' \
+ && cd ~/data/ \
+ && curl -sL "https://github.com/OpenVSLAM-Community/FBoW_orb_vocab/raw/main/orb_vocab.fbow" -o orb_vocab.fbow
+
 RUN mkdir -p /home/$USER/datasets \
  && mkdir -p /home/$USER/ws/src/project
 
