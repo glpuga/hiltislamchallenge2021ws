@@ -86,6 +86,7 @@ RUN chmod a+x build_openvslam.sh \
 RUN apt update \
  && apt install -y \
         ros-${DIST}-cv-bridge \
+        ros-${DIST}-octomap-server \
  && apt clean
 
 # Install extra tools tools

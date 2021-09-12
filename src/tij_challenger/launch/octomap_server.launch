@@ -1,0 +1,8 @@
+<launch>
+
+  <node ns="octomap" name="$(anon octomap)" pkg="octomap_server" type="octomap_server_node" respawn="false" output="screen">
+    <remap from="cloud_in" to="/os_cloud_node/points" />
+    <param name="~frame_id" value="world" />
+  </node>
+
+</launch>
