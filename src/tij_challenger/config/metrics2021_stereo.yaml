@@ -22,13 +22,14 @@ Camera:
   p2: 0
   k3: 0
 
-  fps: 30.0
-  cols: 640
-  rows: 480
+  fps: 10.0
+  cols: 1440
+  rows: 1080
   # 50mm baseline for the D435i
   focal_x_baseline: 30.598477150000004
 
   color_order: "RGB"
+
 
 #=====================#
 # Tracking Parameters #
