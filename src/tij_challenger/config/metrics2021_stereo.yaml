@@ -8,27 +8,49 @@ Camera:
   name: "Hilti Challenge 2021 stereo camera"
   setup: "stereo"
   model: "perspective"
+  
+  # new "rectified" matrices is the first three cols of the projection matrix which is calculated with cv::stereoRectify()
+  # e.g. fx = P1[0][0] or P2[0][0], cx = P1[0][2] or P2[0][2]
+  #      fy = P1[1][1] or P2[1][1], cy = P1[1][2] or P2[1][2]
+  
+  fx: 699.19282690285
+  fy: 699.19282690285
+  cx: 714.2497024536133
+  cy: 524.614143371582
 
-  # K: [611.9695434570312, 0.0, 318.71343994140625, 0.0, 612.0466918945312, 237.70240783691406, 0.0, 0.0, 1.0]
-  fx: 611.9695434570312
-  fy: 612.0466918945312
-  cx: 318.71343994140625
-  cy: 237.70240783691406
-
-  # D: [0.0, 0.0, 0.0, 0.0, 0.0]
+  # there is no distortion after stereo rectification
   k1: 0
   k2: 0
   p1: 0
   p2: 0
   k3: 0
 
+  # Frames per second, as recorded with rostopic hz
   fps: 10.0
+  # Image resolution
   cols: 1440
   rows: 1080
-  # 50mm baseline for the D435i
-  focal_x_baseline: 30.598477150000004
 
-  color_order: "RGB"
+  # focal_x_baseline is -P2[0][3] which is calculated with cv::stereoRectify()
+  focal_x_baseline: -0.0
+
+  color_order: "Gray"
+
+  #======================#
+  # Stereo Rectification #
+  #======================#
+
+  # original intrinsic parameters (K, D) and stereo-recitification parameters (R)
+  # matrices (K, R) are written in row-major order
+
+  # The camera setup is such that the left camera is camera 1 and the right one camera 0
+StereoRectifier:
+  K_right: [701.6682111281,0.0,703.6097253263,0.0,701.55526909,530.4665279367,0.0,0.0,1.0]
+  D_right: [-0.0395909069,-0.0041727433,0.0,0.0,0.0030288415,-0.0012784168,0.0,0.0]
+  R_right: [0.9999898393752724,0.003688596013447719,-0.00259140997642728,-0.0026048564356694207,0.003645289855303029,-0.9999899632420418,-0.003679112551404326,0.999986552970249,0.0036548610799450004]
+  K_left:  [696.7174426776,0.0,708.4206218964,0.0,696.4862496732,535.6712007522,0.0,0.0,1.0]
+  D_left:  [-0.0465180371,0.0160363324,0.0,0.0,-0.0170339468,0.0050095489,0.0,0.0]
+  R_left:  [0.9999939182094806,-0.0018608724217237897,-0.002949694540196155,0.0029472953710235283,-0.0012906987339583,0.9999948237599903,-0.0018646699564101017,-0.999997435622016,-0.001285206343524365]
 
 
 #=====================#

@@ -53,8 +53,8 @@ cam0_distorsion_coeffs = distorsion_coeffiecients(
     k4=c0_k4
 )
 
-c0_rot = np.quaternion(-0.5003218001035493, 0.5012125349997221, -
-                       0.5001966939080825, 0.49826434600894337)
+c0_rot = np.quaternion(-0.5003218001035493, 0.5012125349997221,
+                       -0.5001966939080825, 0.49826434600894337)
 c0_tr = np.array(
     [0.05067834857850693, 0.0458784339890185, -0.005943648304780761])
 
@@ -90,13 +90,20 @@ c1_tr = np.array(
 
 c1_ref_to_cam = roto_translation_matrix(c1_rot, c1_tr)
 
-c0_to_c1_transform = np.linalg.inv(c1_ref_to_cam) * c1_ref_to_cam
+c0_to_c1_transform = np.linalg.inv(c0_ref_to_cam) * c1_ref_to_cam
 c0_to_c1_rotation = c0_to_c1_transform[0:3, 0:3]
 c0_to_c1_translation = c0_to_c1_transform[0:3, 3]
 
+print()
+print(c0_ref_to_cam)
+print()
+print(c1_ref_to_cam)
+print()
+print(c0_to_c1_transform)
+print()
 image_size = (c0_cols, c0_rows)
 
-cam0_rotation, cam1_rotation, cam0_pose, cam1_pose, Q = cv2.stereoRectify(
+R1, R2, P1, P2, Q = cv2.stereoRectify(
     cam0_intrinsic_matrix, cam0_distorsion_coeffs,
     cam1_intrinsic_matrix, cam1_distorsion_coeffs,
     imageSize=image_size,
@@ -104,10 +111,70 @@ cam0_rotation, cam1_rotation, cam0_pose, cam1_pose, Q = cv2.stereoRectify(
     T=c0_to_c1_translation
 )[0:5]
 
-print("cam0 R: {}".format(cam0_rotation))
-print("cam0 P: {}".format(cam0_pose))
+print('cam0 R: {}'.format(R1))
+print('cam0 P: {}'.format(P1))
 
-print("cam1 R: {}".format(cam1_rotation))
-print("cam1 P: {}".format(cam1_pose))
+print('cam1 R: {}'.format(R2))
+print('cam1 P: {}'.format(P2))
 
-print("Q: {}".format(Q))
+print('Q: {}'.format(Q))
+
+
+def to_string(x):
+    return "[{}]".format(",".join([str(i) for i in x]))
+
+
+def to_vector(x):
+    return np.asarray(x).reshape(-1)
+
+
+print('')
+print('Camera:')
+print('  name: "Hilti Challenge 2021 stereo camera"')
+print('  setup: "stereo"')
+print('  model: "perspective"')
+print('  ')
+print('  # new "rectified" matrices is the first three cols of the projection matrix which is calculated with cv::stereoRectify()')
+print('  # e.g. fx = P1[0][0] or P2[0][0], cx = P1[0][2] or P2[0][2]')
+print('  #      fy = P1[1][1] or P2[1][1], cy = P1[1][2] or P2[1][2]')
+print('  ')
+print('  fx: {}'.format(P1[0][0]))
+print('  fy: {}'.format(P1[1][1]))
+print('  cx: {}'.format(P1[0][2]))
+print('  cy: {}'.format(P1[1][2]))
+print('')
+print('  # there is no distortion after stereo rectification')
+print('  k1: 0')
+print('  k2: 0')
+print('  p1: 0')
+print('  p2: 0')
+print('  k3: 0')
+print('')
+print('  # Frames per second, as recorded with rostopic hz')
+print('  fps: 10.0')
+print('  # Image resolution')
+print('  cols: {}'.format(c0_cols))
+print('  rows: {}'.format(c0_rows))
+print('')
+print(
+    '  # focal_x_baseline is -P2[0][3] which is calculated with cv::stereoRectify()')
+print('  focal_x_baseline: {}'.format(-P2[0][3]))
+print('')
+print('  color_order: "Gray"')
+print('')
+print('  #======================#')
+print('  # Stereo Rectification #')
+print('  #======================#')
+print('')
+print('  # original intrinsic parameters (K, D) and stereo-recitification parameters (R)')
+print('  # matrices (K, R) are written in row-major order')
+print('')
+print('  # The camera setup is such that the left camera is camera 1 and the right one camera 0')
+print('StereoRectifier:')
+print('  K_right: {}'.format(to_string(to_vector(cam0_intrinsic_matrix))))
+print('  D_right: {}'.format(to_string(cam0_distorsion_coeffs)))
+print('  R_right: {}'.format(to_string(to_vector(R1))))
+print('  K_left:  {}'.format(to_string(to_vector(cam1_intrinsic_matrix))))
+print('  D_left:  {}'.format(to_string(cam1_distorsion_coeffs)))
+print('  R_left:  {}'.format(to_string(to_vector(R2))))
+print('')
