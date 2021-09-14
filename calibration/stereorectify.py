@@ -22,10 +22,10 @@ def roto_translation_matrix(q, t):
     rr = quaternion.as_rotation_matrix(q)
     tt = np.array([*t])
     rt_matrix = np.matrix([
-        [rr[0, 0], rr[1, 0], rr[2, 0], tt[0]],
-        [rr[0, 1], rr[1, 1], rr[2, 1], tt[1]],
-        [rr[0, 2], rr[1, 2], rr[2, 2], tt[2]],
-        [0,       0,       0,       1]
+        [rr[0, 0], rr[0, 1], rr[0, 2], tt[0]],
+        [rr[1, 0], rr[1, 1], rr[1, 2], tt[1]],
+        [rr[2, 0], rr[2, 1], rr[2, 2], tt[2]],
+        [0,        0,        0,        1]
     ])
     return rt_matrix
 
@@ -156,9 +156,8 @@ print('  # Image resolution')
 print('  cols: {}'.format(c0_cols))
 print('  rows: {}'.format(c0_rows))
 print('')
-print(
-    '  # focal_x_baseline is -P2[0][3] which is calculated with cv::stereoRectify()')
-print('  focal_x_baseline: {}'.format(-P2[0][3]))
+print('  # focal_x_baseline is -P2[0][3] which is calculated with cv::stereoRectify()')
+print('  focal_x_baseline: {}'.format(np.sum(np.array(c0_to_c1_translation))))
 print('')
 print('  color_order: "Gray"')
 print('')
