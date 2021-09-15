@@ -1,0 +1,6 @@
+<launch>
+
+  <node name="cam0_sensor_frame_publisher" pkg="tf" type="static_transform_publisher" args="0.0 0.0 0.0 0.0 0.0 0.0 cam0 cam0_sensor_frame 100" />
+  <node name="cam1_sensor_frame_publisher" pkg="tf" type="static_transform_publisher" args="0.0 0.0 0.0 0.0 0.0 0.0 cam1 cam1_sensor_frame 100" />
+
+</launch>

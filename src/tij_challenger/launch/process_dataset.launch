@@ -19,8 +19,13 @@
     <arg name="rviz_config" value="$(find tij_challenger)/config/config.rviz" />
   </include>
 
-    <!-- launch octomap server -->
-  <include file="$(find tij_challenger)/launch/octomap_server.launch">
-  </include>
+   <!-- launch extra static transforms -->
+  <include file="$(find tij_challenger)/launch/static_transforms.launch" />
+
+   <!-- launch octomap server -->
+  <include file="$(find tij_challenger)/launch/octomap_server.launch" />
+
+   <!-- launch openvslam -->
+  <include file="$(find tij_challenger)/launch/openvslam.launch" />
 
 </launch>

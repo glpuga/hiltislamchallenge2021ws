@@ -1,0 +1,19 @@
+<launch>
+
+  <arg name="openvslam_config_file" value="metrics2021_stereo.yaml" />
+
+  <group ns="slam">
+
+    <node pkg="openvslam_ros" type="run_slam" name="openvslam"
+          args="-v /home/developer/data/orb_vocab.fbow -c $(find tij_challenger)/config/$(arg openvslam_config_file)"
+          output="screen">
+      <remap from="camera/right/image_raw" to="/alphasense/cam0/image_raw" />
+      <remap from="camera/left/image_raw"  to="/alphasense/cam1/image_raw" />
+      <param name="odom_frame" value="base_link" />
+      <param name="map_frame"  value="world" />
+      <param name="publish_tf" value="false" />
+    </node>
+  
+  </group>
+
+</launch>
