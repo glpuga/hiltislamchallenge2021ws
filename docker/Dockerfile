@@ -75,13 +75,6 @@ RUN addgroup --gid 1000 $USER && \
 RUN adduser $USER sudo \
  && echo "$USER ALL=NOPASSWD: ALL" >> /etc/sudoers.d/$USER
 
-#
-# Install openvslam
-WORKDIR /home/root
-COPY files/build_openvslam.sh build_openvslam.sh
-RUN chmod a+x build_openvslam.sh \
- && ./build_openvslam.sh
-
 # Add extra ROS packages here
 RUN apt update \
  && apt install -y \
@@ -101,7 +94,32 @@ RUN apt update \
 # Commands below run as the developer user.
 USER $USER:$GROUP
 
+WORKDIR /home/$USER
+
+#
+# Install Cartographer
+RUN sudo apt update \
+ && sudo apt install -y python3-wstool python3-rosdep ninja-build stow \
+ && sudo apt clean
+RUN mkdir cartographer_catkin_ws \
+ && cd cartographer_catkin_ws \
+ && wstool init src \
+ && wstool merge -t src https://raw.githubusercontent.com/cartographer-project/cartographer_ros/master/cartographer_ros.rosinstall \
+ && wstool update -t src \
+ && rosdep update \
+ && rosdep install --from-paths src --ignore-src --rosdistro=${DIST} -y \
+ && sudo src/cartographer/scripts/install_abseil.sh
+RUN /bin/bash -c "source /opt/ros/noetic/setup.bash ] \
+ && cd cartographer_catkin_ws \
+ && catkin_make_isolated --install --use-ninja"
+
 RUN rosdep update
+
+# Dependencies for rpg_trajectory_evaluation
+RUN wget https://bootstrap.pypa.io/pip/2.7/get-pip.py \
+ && sudo python2 get-pip.py \
+ && sudo pip2 install -U numpy matplotlib colorama PyYaml \
+ && sudo apt install python-tk
 
 RUN mkdir -p /home/$USER/datasets \
  && mkdir -p /home/$USER/ws/src/project
@@ -110,7 +128,7 @@ RUN mkdir -p /home/$USER/datasets \
 RUN /bin/sh -c 'echo "export DATASET_DIR=/home/${USER}/datasets" >> ~/.bashrc'
 
 # Source all the needed environment files.
-RUN /bin/sh -c 'echo ". /opt/ros/${DIST}/setup.bash" >> ~/.bashrc' \
+RUN /bin/sh -c 'echo ". /home/${USER}/cartographer_catkin_ws/devel_isolated/setup.bash" >> ~/.bashrc' \
  && /bin/sh -c 'echo "set-option -g default-shell /bin/bash" >> ~/.tmux.conf'
 
 WORKDIR /home/$USER/ws

@@ -1,7 +1,0 @@
-<launch>
-
-  <include file="$(find tij_challenger)/launch/process_dataset.launch">
-    <arg name="bag_file" value="dataset_00_uzh_tracking_area_run_2/uzh_tracking_area_run2.bag" />
-  </include>
-
-</launch>

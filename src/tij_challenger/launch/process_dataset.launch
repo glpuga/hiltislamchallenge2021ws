@@ -3,15 +3,16 @@
   <param name="/use_sim_time" value="true" />
 
   <arg name="bag_file" />
-  <arg name="loop" default="false" />
-  <arg name="enable_rviz" default="true" />
+  <arg name="trajectory_file" />
 
-  <arg name="openvslam_config_file" value="metrics2021_rgbd.yaml" /> 
+  <arg name="enable_rviz" default="true" />
+  
+  <arg name="dataset_path_root" value="/home/developer/datasets" />
 
   <!-- play bag file and apply processing if needed -->
   <include file="$(find tij_challenger)/launch/play_bag.launch">
-    <arg name="bag_file" value="/home/developer/datasets/$(arg bag_file)" />
-    <arg name="loop" value="$(arg loop)" />
+    <arg name="bag_file" value="$(arg dataset_path_root)/$(arg bag_file)" />
+    <arg name="loop" value="false" />
   </include>
 
   <!-- launch rviz -->
@@ -20,7 +21,26 @@
   </include>
 
     <!-- launch octomap server -->
-  <include file="$(find tij_challenger)/launch/octomap_server.launch">
-  </include>
+  <include file="$(find tij_challenger)/launch/octomap_server.launch" />
+
+  <!-- TODO move this to a separate "static_transforms" launch file -->
+  <node pkg="tf" type="static_transform_publisher" name="imu_sensor_frame_publisher" args="0 0 0 0 0 0 imu imu_sensor_frame 100" />
+
+  <!-- launch cartographer -->
+  <node name="cartographer_node" pkg="cartographer_ros"
+      type="cartographer_node" args="
+          -configuration_directory $(find tij_challenger)/config
+          -configuration_basename hiltichallenge2021.lua"
+      >
+    <remap from="points2" to="/os_cloud_node/points" />
+    <remap from="imu"     to="/alphasense/imu" />
+  </node>
+  <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros"
+        type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
+
+  <!-- launch trajectory recordier -->
+  <node name="trajectory_recorder_node" pkg="tij_challenger" type="recorder.py" required="true" output="screen">
+    <param name="~trajectory_file" value="$(arg dataset_path_root)/$(arg trajectory_file)" />
+  </node>
 
 </launch>

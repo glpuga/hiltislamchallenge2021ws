@@ -1,0 +1,12 @@
+<launch>
+
+  <arg name="bagfile"        value="Basement_4.bag" />
+  <arg name="dataset_folder" value="dataset_04_Basement_4" />
+  <arg name="trajectory_log" value="stamped_traj_estimate.txt" />
+
+  <include file="$(find tij_challenger)/launch/process_dataset.launch">
+    <arg name="bag_file" value="$(arg dataset_folder)/$(arg bagfile)" />
+    <arg name="trajectory_file" value="$(arg dataset_folder)/$(arg trajectory_log)" />
+  </include>
+
+</launch>

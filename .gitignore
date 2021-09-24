@@ -1,4 +1,5 @@
 placeholder
 datasets/*
 !datasets/placeholder
-!datasets/dataset.links
+!datasets/links_to_datasets.txt
+!datasets/process_all.sh
