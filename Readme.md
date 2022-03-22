@@ -5,15 +5,19 @@
 
 (you can figure out the rest)
 
-> cd docker 
-> ./build
-> ./run
+```
+ cd docker 
+ ./build.bash
+ ./run.bash
+```
 
 Within the container, to run one of the datasets:
 
-> catkin_make
-> source devel/setup.bash
-> roslaunch tij_challenger process_dataset_00_uzh_tracking_area_run_2.launch
+```
+ catkin_make
+ source devel/setup.bash
+ roslaunch tij_challenger process_dataset_00_uzh_tracking_area_run_2.launch
+```
 
 The launch files assume that the Hilti Challenge 2021 dataset are located witin `dataset/` with the following structure:
 
