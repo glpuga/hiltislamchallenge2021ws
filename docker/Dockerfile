@@ -20,11 +20,8 @@ RUN apt update \
     build-essential \
     clang-format \
     cmake \
-    cppcheck \
     curl \
-    gdb \
     git \
-    locate \
     locate \
     lsb-release \
     mc \
@@ -80,6 +77,7 @@ RUN apt update \
  && apt install -y \
         ros-${DIST}-cv-bridge \
         ros-${DIST}-octomap-server \
+        ros-${DIST}-swri-console \
  && apt clean
 
 # Install extra tools tools

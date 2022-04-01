@@ -1,7 +1,7 @@
 <launch>
 
-  <arg name="bagfile"        value="Office_Mitte_1.bag" />
-  <arg name="dataset_folder" value="dataset_08_Office_Mitte_1" />
+  <arg name="bagfile"        value="calib_03_2022-03-02-11-27-22.bag" />
+  <arg name="dataset_folder" value="dataset_00_calib_03" />
   <arg name="trajectory_log" value="stamped_traj_estimate.txt" />
 
   <include file="$(find tij_challenger)/launch/process_dataset.launch">

@@ -1,8 +1,9 @@
 <launch>
 
-  <node ns="octomap" name="$(anon octomap)" pkg="octomap_server" type="octomap_server_node" respawn="false" output="screen">
-    <remap from="cloud_in" to="/os_cloud_node/points" />
-    <param name="~frame_id" value="world" />
+  <node name="octomap_server" pkg="octomap_server" type="octomap_server_node" respawn="false" output="screen">
+    <remap from="cloud_in" to="/hesai/pandar" />
+    <param name="~frame_id" value="/map" />
+    <param name="~resolution" value="0.2" />
   </node>
 
 </launch>

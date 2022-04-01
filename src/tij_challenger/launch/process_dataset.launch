@@ -23,8 +23,7 @@
     <!-- launch octomap server -->
   <include file="$(find tij_challenger)/launch/octomap_server.launch" />
 
-  <!-- TODO move this to a separate "static_transforms" launch file -->
-  <node pkg="tf" type="static_transform_publisher" name="imu_sensor_frame_publisher" args="0 0 0 0 0 0 imu imu_sensor_frame 100" />
+  <include file="$(find tij_challenger)/launch/static_transforms.launch" />
 
   <!-- launch cartographer -->
   <node name="cartographer_node" pkg="cartographer_ros"
@@ -32,15 +31,18 @@
           -configuration_directory $(find tij_challenger)/config
           -configuration_basename hiltichallenge2021.lua"
       >
-    <remap from="points2" to="/os_cloud_node/points" />
+    <remap from="points2" to="/hesai/pandar" />
     <remap from="imu"     to="/alphasense/imu" />
   </node>
   <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros"
         type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
 
-  <!-- launch trajectory recordier -->
+  <!-- launch trajectory recordier
   <node name="trajectory_recorder_node" pkg="tij_challenger" type="recorder.py" required="true" output="screen">
     <param name="~trajectory_file" value="$(arg dataset_path_root)/$(arg trajectory_file)" />
-  </node>
+  </node> -->
+
+  <!-- logging  -->
+  <!-- <node name="$(anon swri_console)" pkg="swri_console" type="swri_console" respawn="false" output="screen" /> -->
 
 </launch>

@@ -1,7 +1,7 @@
 <launch>
 
-  <arg name="bagfile"        value="Construction_Site_1.bag" />
-  <arg name="dataset_folder" value="dataset_05_Construction_Site_1" />
+  <arg name="bagfile"        value="exp_04_construction_upper_level_easy_2_2022-03-03-11-48-59.bag" />
+  <arg name="dataset_folder" value="dataset_01_exp_04" />
   <arg name="trajectory_log" value="stamped_traj_estimate.txt" />
 
   <include file="$(find tij_challenger)/launch/process_dataset.launch">
